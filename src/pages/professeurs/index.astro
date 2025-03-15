@@ -1,0 +1,79 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import franck from '../../assets/images/franck.avif';
+import maud from '../../assets/images/maud.avif';
+
+const professeurs = [
+  {
+    id: 'sarah-martin',
+    nom: 'Franck Litzler',
+    image: franck,
+    specialite: 'Hatha Yoga, Vinyasa Flow',
+    description: "Fondateur et professeur de yoga de l'énergie, hatha yoga"
+  },
+  {
+    id: 'thomas-dubois',
+    nom: 'Maud Bouchard',
+    image: maud,
+    specialite: 'Yin Yoga, Méditation',
+    description: 'Fondatrice et professeur de yoga & maternité'
+  },
+  // {
+  //   id: 'julie-bernard',
+  //   nom: 'Julie Bernard',
+  //   image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&q=80',
+  //   specialite: 'Yoga Dynamique, Ashtanga',
+  //   description: 'Ancienne danseuse, Julie apporte énergie et précision dans ses cours de yoga dynamique.'
+  // }
+];
+---
+
+<Layout title="Nos Professeurs - La Matrice">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="text-center mb-12" data-aos="fade-down">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">Nos Professeurs</h1>
+      <p class="text-lg text-gray-600">Découvrez notre équipe de professeurs passionnés et expérimentés</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {professeurs.map((prof, index) => (
+        <div 
+          class="h-full" 
+          data-aos="fade-up" 
+          data-aos-delay={index * 100}
+        >
+          <a 
+            href={`/professeurs/${prof.id}`} 
+            class="block h-full bg-white rounded-lg p-6 shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+          >
+            <div class="aspect-square mb-4 overflow-hidden rounded-full relative group">
+              <div class="absolute inset-0 bg-accent opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-full"></div>
+              <Image 
+              loading="lazy"
+                src={prof.image} 
+                alt={prof.nom}
+                class="w-full h-full object-cover rounded-full"
+              />
+            </div>
+            <div class="text-center">
+              <h2 class="text-xl font-semibold text-primary mb-2 group-hover:text-accent transition-colors duration-300">
+                {prof.nom}
+              </h2>
+              <p class="text-accent font-medium mb-3">{prof.specialite}</p>
+              <p class="text-gray-600 line-clamp-3">{prof.description}</p>
+            </div>
+            <div class="mt-4 text-center">
+              <span class="inline-flex items-center text-sm font-medium text-accent hover:text-accent-dark transition-colors duration-300">
+                En savoir plus
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+              </span>
+            </div>
+          </a>
+        </div>
+      ))}
+    </div>
+  </main>
+</Layout>

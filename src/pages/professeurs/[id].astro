@@ -1,0 +1,185 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import franck from '../../assets/images/franck.avif';
+
+export async function getStaticPaths() {
+  const professeurs = {
+    'sarah-martin': {
+      nom: 'FRANCK LITZLER',
+      image: franck,
+      specialite: 'Hatha Yoga, Vinyasa Flow',
+      description: 'Professeure certifiée avec 10 ans dexpérience, Sarah vous accompagne dans votre pratique avec bienveillance et expertise.',
+      formation: 'Certifiée RYT 500 par Yoga Alliance',
+      approche: 'Mon approche du yoga est holistique, alliant postures physiques, respiration et méditation. Je mattache à créer un environnement bienveillant où chacun peut progresser à son rythme.',
+      email: 'sarah.martin@lamatrice.net',
+      telephone: '06 12 34 56 78',
+      cours: ['Hatha Yoga - Lundi 10h', 'Vinyasa Flow - Mercredi 18h30', 'Yoga Doux - Vendredi 9h']
+    },
+    'thomas-dubois': {
+      nom: 'Thomas Dubois',
+      image: franck,
+      specialite: 'Yin Yoga, Méditation',
+      description: 'Passionné par le yoga thérapeutique, Thomas vous aide à trouver léquilibre entre corps et esprit.',
+      formation: 'Diplômé de lÉcole Française de Yoga',
+      approche: 'Je privilégie une approche douce et méditative du yoga, permettant de libérer les tensions profondes et dapaiser lesprit.',
+      email: 'thomas.dubois@lamatrice.net',
+      telephone: '06 23 45 67 89',
+      cours: ['Yin Yoga - Mardi 19h', 'Méditation - Jeudi 8h', 'Yoga Restauratif - Samedi 10h']
+    },
+    // 'julie-bernard': {
+    //   nom: 'Julie Bernard',
+    //   image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&q=80',
+    //   specialite: 'Yoga Dynamique, Ashtanga',
+    //   description: 'Ancienne danseuse, Julie apporte énergie et précision dans ses cours de yoga dynamique.',
+    //   formation: 'Formée à lAshtanga Yoga Institute de Mysore',
+    //   approche: 'Mon enseignement est dynamique et précis, inspiré par ma formation en danse et en Ashtanga. Je mets laccent sur lalignement et la respiration.',
+    //   email: 'julie.bernard@lamatrice.net',
+    //   telephone: '06 34 56 78 90',
+    //   cours: ['Ashtanga - Lundi 18h', 'Vinyasa Dynamic - Jeudi 19h', 'Power Yoga - Samedi 11h30']
+    // }
+  };
+
+  return Object.entries(professeurs).map(([id, professeur]) => {
+    return {
+      params: { id },
+      props: { professeur }
+    };
+  });
+}
+
+const { professeur } = Astro.props;
+---
+
+<Layout title={`${professeur.nom} - La Matrice`}>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Bouton retour -->
+    <div class="mb-8" data-aos="fade-right">
+      <a href="/professeurs" class="inline-flex items-center text-sage-500 hover:text-accent transition-colors duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L4.414 9H17a1 1 0 110 2H4.414l5.293 5.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+        </svg>
+        Retour aux professeurs
+      </a>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-soft overflow-hidden">
+      <div class="lg:flex">
+        <!-- Image Section -->
+        <div class="lg:w-1/3 relative group overflow-hidden" data-aos="fade-right">
+          <div class="absolute inset-0 bg-accent opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
+          <Image 
+          loading="lazy"
+            class="h-96 lg:h-full w-full object-cover"
+            src={professeur.image}
+            alt={professeur.nom}
+          />
+          <!-- Overlay gradient -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent lg:hidden"></div>
+          <!-- Mobile name overlay -->
+          <div class="absolute bottom-0 left-0 right-0 p-6 lg:hidden">
+            <h1 class="text-3xl font-bold text-white mb-2">{professeur.nom}</h1>
+            <p class="text-cream/90">{professeur.specialite}</p>
+          </div>
+        </div>
+
+        <!-- Content Section -->
+        <div class="lg:w-2/3 p-8 lg:p-12">
+          <!-- Desktop name section -->
+          <div class="hidden lg:block mb-8" data-aos="fade-up">
+            <h1 class="text-4xl font-bold text-primary mb-3">{professeur.nom}</h1>
+            <p class="text-accent text-lg">{professeur.specialite}</p>
+          </div>
+
+          <!-- Description -->
+          <div class="prose prose-sage max-w-none" data-aos="fade-up" data-aos-delay="200">
+            <p class="text-sage-600 text-lg leading-relaxed mb-8">{professeur.description}</p>
+          </div>
+
+          <!-- Formation et Approche -->
+          <div class="grid md:grid-cols-2 gap-8 mb-12">
+            <div class="bg-sage-50 rounded-xl p-6" data-aos="fade-up" data-aos-delay="300">
+              <h2 class="text-xl font-semibold text-primary mb-4 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path d="M12 14l9-5-9-5-9 5 9 5z"/>
+                  <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+                </svg>
+                Formation
+              </h2>
+              <p class="text-sage-600">{professeur.formation}</p>
+            </div>
+            <div class="bg-sage-50 rounded-xl p-6" data-aos="fade-up" data-aos-delay="400">
+              <h2 class="text-xl font-semibold text-primary mb-4 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+                Mon Approche
+              </h2>
+              <p class="text-sage-600">{professeur.approche}</p>
+            </div>
+          </div>
+
+          <!-- Cours -->
+          <div class="mb-12" data-aos="fade-up" data-aos-delay="500">
+            <h2 class="text-xl font-semibold text-primary mb-6 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Mes Cours
+            </h2>
+            <div class="grid sm:grid-cols-2 gap-4">
+              {professeur.cours.map(cours => (
+                <div class="bg-sage-50 rounded-lg p-4 flex items-center space-x-3 transform hover:scale-105 transition-transform duration-300">
+                  <div class="flex-shrink-0">
+                    <div class="w-2 h-2 rounded-full bg-accent"></div>
+                  </div>
+                  <span class="text-sage-700">{cours}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Contact -->
+          <div data-aos="fade-up" data-aos-delay="600">
+            <h2 class="text-xl font-semibold text-primary mb-6 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              Contact
+            </h2>
+            <div class="flex flex-wrap gap-4">
+              <a 
+                href={`mailto:${professeur.email}`} 
+                class="inline-flex items-center px-4 py-2 rounded-lg bg-sage-50 text-sage-700 hover:bg-sage-100 transition-colors duration-300"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                </svg>
+                {professeur.email}
+              </a>
+              <a 
+                href={`tel:${professeur.telephone}`} 
+                class="inline-flex items-center px-4 py-2 rounded-lg bg-sage-50 text-sage-700 hover:bg-sage-100 transition-colors duration-300"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                </svg>
+                {professeur.telephone}
+              </a>
+              <a 
+                href="/contact" 
+                class="inline-flex items-center px-4 py-2 rounded-lg bg-accent text-white hover:bg-accent-dark transition-colors duration-300"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+                </svg>
+                Réserver un cours
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>

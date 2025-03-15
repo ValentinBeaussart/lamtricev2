@@ -1,0 +1,63 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const horaires = {
+  lundi: [
+    { heure: '10:00 - 11:30', cours: 'Hatha Yoga' },
+    { heure: '18:30 - 20:00', cours: 'Vinyasa Flow' }
+  ],
+  mardi: [
+    { heure: '12:30 - 13:30', cours: 'Yoga Pause Déjeuner' },
+    { heure: '19:00 - 20:30', cours: 'Yin Yoga' }
+  ],
+  mercredi: [
+    { heure: '10:00 - 11:30', cours: 'Vinyasa Flow' },
+    { heure: '18:30 - 20:00', cours: 'Hatha Yoga' }
+  ],
+  jeudi: [
+    { heure: '12:30 - 13:30', cours: 'Yoga Pause Déjeuner' },
+    { heure: '19:00 - 20:30', cours: 'Vinyasa Flow' }
+  ],
+  vendredi: [
+    { heure: '10:00 - 11:30', cours: 'Yin Yoga' },
+    { heure: '18:30 - 20:00', cours: 'Hatha Yoga' }
+  ],
+  samedi: [
+    { heure: '10:00 - 11:30', cours: 'Vinyasa Flow' },
+    { heure: '12:00 - 13:30', cours: 'Yin Yoga' }
+  ]
+};
+---
+
+<Layout title="Horaires - La Matrice">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">Horaires des Cours</h1>
+      <p class="text-lg text-gray-600">Trouvez le cours qui correspond à votre emploi du temps</p>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {Object.entries(horaires).map(([jour, cours]) => (
+        <div class="bg-white rounded-lg shadow-sm p-6">
+          <h2 class="text-xl font-semibold text-primary capitalize mb-4">{jour}</h2>
+          <div class="space-y-4">
+            {cours.map((seance) => (
+              <div class="border-l-4 border-accent pl-4">
+                <p class="font-medium text-gray-900">{seance.heure}</p>
+                <p class="text-gray-600">{seance.cours}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-12 bg-purple-50 rounded-lg p-8 text-center">
+      <h2 class="text-2xl font-semibold text-primary mb-4">Information importante</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto">
+        Les cours sont limités à 12 personnes pour assurer une attention personnalisée. 
+        Réservation conseillée pour garantir votre place.
+      </p>
+    </div>
+  </main>
+</Layout>
