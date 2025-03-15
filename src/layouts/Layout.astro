@@ -44,8 +44,9 @@ const navLinks = [
       }
 
       [data-aos] {
-        opacity: 1 !important;
-        transform: none !important;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
       }
       
       .nav-scroll {
@@ -109,7 +110,7 @@ const navLinks = [
         visibility: visible;
       }
 
-      @media (prefers-color-scheme: dark) {
+      /* @media (prefers-color-scheme: dark) {
         :root {
           color-scheme: dark;
         }
@@ -129,7 +130,7 @@ const navLinks = [
         .nav-scroll {
           background-color: rgba(54, 69, 55, 0.85);
         }
-      }
+      } */
     </style>
   </head>
   <body class="min-h-screen bg-cream overflow-x-hidden w-full">
@@ -139,7 +140,7 @@ const navLinks = [
     <!-- Mobile Menu -->
     <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 w-72 h-full bg-white z-60 shadow-soft">
       <div class="p-6">
-        <button id="closeMenu" class="p-2 text-gray-500 hover:text-gray-700 transition-colors duration-300">
+        <button id="closeMenu" class="p-2 text-sage-500 hover:text-sage-700 transition-colors duration-300">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
@@ -151,7 +152,7 @@ const navLinks = [
               class={`px-4 py-3 text-base font-medium rounded-xl transition-all duration-300 ${
                 currentPath === link.href
                   ? 'bg-sage-100 text-primary'
-                  : 'text-gray-600 hover:bg-sage-50 hover:text-primary'
+                  : 'text-sage-600 hover:bg-sage-50 hover:text-primary'
               }`}
             >
               {link.text}
@@ -184,7 +185,7 @@ const navLinks = [
                 class={`nav-link inline-flex items-center px-4 py-2 text-base font-medium transition-all duration-300 ${
                   currentPath === link.href
                     ? 'text-primary nav-active'
-                    : 'text-gray-600 hover:text-primary'
+                    : 'text-sage-600 hover:text-primary'
                 }`}
               >
                 {link.text}
@@ -198,7 +199,7 @@ const navLinks = [
             </a>
           </div>
           <div class="flex items-center md:hidden">
-            <button id="openMenu" class="p-2 text-gray-500 hover:text-gray-700 transition-colors duration-300">
+            <button id="openMenu" class="p-2 text-sage-500 hover:text-sage-700 transition-colors duration-300">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
               </svg>
@@ -217,11 +218,11 @@ const navLinks = [
         <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
           <div data-aos="fade-up" data-aos-delay="100" class="text-center md:text-left">
             <h3 class="text-xl font-semibold text-primary mb-6">La Matrice</h3>
-            <p class="text-gray-600">Un espace dédié au bien-être et à la pratique du yoga au cœur de Grenoble.</p>
+            <p class="text-sage-600">Un espace dédié au bien-être et à la pratique du yoga au cœur de Grenoble.</p>
           </div>
           <div data-aos="fade-up" data-aos-delay="200" class="text-center md:text-left">
             <h3 class="text-xl font-semibold text-primary mb-6">Contact</h3>
-            <ul class="space-y-4 text-gray-600">
+            <ul class="space-y-4 text-sage-600">
               <li>123 Rue du Yoga, 75000 Paris</li>
               <li>01 23 45 67 89</li>
               <li>contact@lamatrice.net</li>
@@ -252,34 +253,29 @@ const navLinks = [
     </footer>
 
     <script>
-      // Initialize AOS with reduced animations
+      // Initialize AOS
       import AOS from 'aos';
       document.addEventListener('DOMContentLoaded', () => {
         AOS.init({
-          duration: 400, // Reduced duration
-          once: true, // Only animate once
+          duration: 600,
+          once: true,
           offset: 0,
-          disable: window.innerWidth < 768, // Disable on mobile
-          easing: 'ease-out',
-          delay: 0
+          easing: 'ease-out-cubic',
+          delay: 0,
+          mirror: true,
+          anchorPlacement: 'top-bottom',
+          disable: false, // Enable animations on mobile
+          startEvent: 'DOMContentLoaded'
         });
+
+        setTimeout(() => {
+          AOS.refresh();
+        }, 300);
       });
 
-      // Lazy load images
-      document.addEventListener('DOMContentLoaded', () => {
-        const images = document.querySelectorAll('img[loading="lazy"]');
-        if ('loading' in HTMLImageElement.prototype) {
-          images.forEach(img => {
-            if (img.dataset.src) {
-              img.src = img.dataset.src;
-            }
-          });
-        } else {
-          // Fallback for browsers that don't support lazy loading
-          const script = document.createElement('script');
-          script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js';
-          document.body.appendChild(script);
-        }
+      // Reinitialize AOS on route change
+      document.addEventListener('astro:after-swap', () => {
+        AOS.refresh();
       });
 
       // Optimized scroll handler
@@ -300,7 +296,7 @@ const navLinks = [
         }
       });
 
-      // Mobile menu with reduced animations
+      // Mobile menu
       const mobileMenu = document.getElementById('mobileMenu');
       const menuBackdrop = document.getElementById('menuBackdrop');
       const openMenuBtn = document.getElementById('openMenu');

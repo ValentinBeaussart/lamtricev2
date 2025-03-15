@@ -82,22 +82,6 @@ export default {
         'inner-soft': 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
         'glow': '0 0 15px rgba(169, 179, 136, 0.5)',
         'float': '0 10px 30px -5px rgba(0, 0, 0, 0.1)'
-      },
-      borderRadius: {
-        'xl': '1rem',
-        '2xl': '1.5rem',
-        '3xl': '2rem',
-        '4xl': '3rem'
-      },
-      transitionProperty: {
-        'height': 'height',
-        'spacing': 'margin, padding'
-      },
-      transitionDuration: {
-        '2000': '2000ms'
-      },
-      transitionTimingFunction: {
-        'bounce-soft': 'cubic-bezier(0.34, 1.56, 0.64, 1)'
       }
     }
   },
