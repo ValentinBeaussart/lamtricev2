@@ -23,7 +23,7 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif']
+        sans: ['Pacifica Regular', 'Inter', 'sans-serif']
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-out',
