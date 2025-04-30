@@ -223,9 +223,10 @@ const navLinks = [
           <div data-aos="fade-up" data-aos-delay="200" class="text-center md:text-left">
             <h3 class="text-xl font-semibold text-primary mb-6">Contact</h3>
             <ul class="space-y-4 text-sage-600">
-              <li>123 Rue du Yoga, 75000 Paris</li>
-              <li>01 23 45 67 89</li>
-              <li>contact@lamatrice.net</li>
+              <li>18 chemin des Marronniers, 38100 Grenoble</li>
+              <li>06 08 10 33 11</li>
+              <li>maud.bouchard@gmail.com</li>
+              <li>franck.litzler@gmail.com</li>
             </ul>
           </div>
           <div data-aos="fade-up" data-aos-delay="300" class="text-center md:text-left">
@@ -247,7 +248,7 @@ const navLinks = [
           </div>
         </div>
         <div class="mt-16 pt-8 border-t border-sage-200 text-center">
-          <p class="text-sage-500">&copy; 2024 La Matrice. Tous droits réservés.</p>
+          <p class="text-sage-500">&copy; <span id="currentYear"></span> La Matrice. Tous droits réservés.</p>
         </div>
       </div>
     </footer>
@@ -317,6 +318,8 @@ const navLinks = [
       mobileMenuLinks.forEach(link => {
         link.addEventListener('click', toggleMenu);
       });
+
+      document.getElementById('currentYear').textContent = new Date().getFullYear();
     </script>
   </body>
 </html>
