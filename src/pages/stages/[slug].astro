@@ -1,11 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { createSupabaseServerClient } from '../../lib/supabaseClient';
+import { supabase } from '../../lib/supabaseClient';
 
 export const prerender = false;
 
 const { slug } = Astro.params;
-const supabase = createSupabaseServerClient(Astro.cookies);
 
 const { data: stage, error } = await supabase
   .from('stages')
