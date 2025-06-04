@@ -1,35 +1,20 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { Image } from 'astro:assets';
-import franck from '../../assets/images/franck.avif';
-import maud from '../../assets/images/maud.avif';
+import { supabase } from '../../lib/supabaseClient';
 
-const professeurs = [
-  {
-    id: 'sarah-martin',
-    nom: 'Franck Litzler',
-    image: franck,
-    specialite: 'Hatha Yoga, Vinyasa Flow',
-    description: "Fondateur et professeur de yoga de l'énergie, hatha yoga"
-  },
-  {
-    id: 'thomas-dubois',
-    nom: 'Maud Bouchard',
-    image: maud,
-    specialite: 'Yin Yoga, Méditation',
-    description: 'Fondatrice et professeur de yoga & maternité'
-  },
-  // {
-  //   id: 'julie-bernard',
-  //   nom: 'Julie Bernard',
-  //   image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&q=80',
-  //   specialite: 'Yoga Dynamique, Ashtanga',
-  //   description: 'Ancienne danseuse, Julie apporte énergie et précision dans ses cours de yoga dynamique.'
-  // }
-];
+export const prerender = false;
+
+const { data: professeurs, error } = await supabase
+  .from('professeurs')
+  .select('*')
+  .order('nom', { ascending: true });
+
+if (error) {
+  throw new Error('Erreur de chargement des professeurs : ' + error.message);
+}
 ---
 
-<Layout title="Nos Professeurs - La Matrice">
+<Layout title="Nos Professeurs - LA MATRICE">
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="text-center mb-12" data-aos="fade-down">
       <h1 class="text-4xl font-bold text-gray-900 mb-4">Nos Professeurs</h1>
@@ -44,14 +29,14 @@ const professeurs = [
           data-aos-delay={index * 100}
         >
           <a 
-            href={`/professeurs/${prof.id}`} 
+            href={`/professeurs/${prof.slug}`} 
             class="block h-full bg-white rounded-lg p-6 shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
           >
             <div class="aspect-square mb-4 overflow-hidden rounded-full relative group">
               <div class="absolute inset-0 bg-accent opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-full"></div>
-              <Image 
-              loading="lazy"
-                src={prof.image} 
+              <img 
+                loading="lazy"
+                src={prof.image_url ?? '/placeholder.jpg'}
                 alt={prof.nom}
                 class="w-full h-full object-cover rounded-full"
               />

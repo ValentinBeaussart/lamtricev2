@@ -1,0 +1,104 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { supabase } from '../../../lib/supabaseClient';
+import { AstroError } from 'astro/errors';
+
+export const prerender = false;
+
+const { slug } = Astro.params;
+
+const { data: stage, error } = await supabase
+  .from('stages')
+  .select('*')
+  .eq('slug', slug)
+  .single();
+
+if (error || !stage) {
+  throw new AstroError('Stage non trouvé');
+}
+---
+
+<Layout title={`Modifier le stage : ${stage.title} - LA MATRICE`}>
+  <main class="max-w-3xl mx-auto px-4 py-24">
+    <div class="bg-white shadow-soft rounded-2xl p-8">
+      <h1 class="text-3xl font-bold text-gray-900 mb-6 text-center">Modifier le stage</h1>
+
+      <form method="POST" action="/api/stages/update" enctype="multipart/form-data" class="grid gap-6">
+        <input type="hidden" name="id" value={stage.id} />
+
+        <div>
+          <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Titre</label>
+          <input name="title" value={stage.title} required class="w-full rounded-xl border-gray-300 bg-sage-50 text-accent-dark" />
+        </div>
+        <div>
+          <label for="slug" class="block text-sm font-medium text-gray-700 mb-1">Slug (URL)</label>
+          <input name="slug" value={stage.slug} required class="w-full rounded-xl border-gray-300 bg-sage-50 text-accent-dark" />
+        </div>
+        <div>
+          <label for="date" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+          <input name="date" value={stage.date} class="w-full rounded-xl border-gray-300 bg-sage-50 text-accent-dark" />
+        </div>
+        <div>
+          <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+          <textarea name="description" rows="3" class="w-full rounded-xl border-gray-300 bg-sage-50 text-accent-dark">{stage.description}</textarea>
+        </div>
+        <div>
+          <label for="details" class="block text-sm font-medium text-gray-700 mb-1">Détails</label>
+          <textarea name="details" rows="3" class="w-full rounded-xl border-gray-300 bg-sage-50 text-accent-dark">{stage.details}</textarea>
+        </div>
+        <div>
+          <label for="duree" class="block text-sm font-medium text-gray-700 mb-1">Durée</label>
+          <input name="duree" value={stage.duree} class="w-full rounded-xl border-gray-300 bg-sage-50 text-accent-dark" />
+        </div>
+        <div>
+          <label for="prix" class="block text-sm font-medium text-gray-700 mb-1">Prix</label>
+          <input name="prix" value={stage.prix} class="w-full rounded-xl border-gray-300 bg-sage-50 text-accent-dark" />
+        </div>
+        <div>
+          <label for="places" class="block text-sm font-medium text-gray-700 mb-1">Places</label>
+          <input name="places" value={stage.places} class="w-full rounded-xl border-gray-300 bg-sage-50 text-accent-dark" />
+        </div>
+        <div>
+          <label for="programme" class="block text-sm font-medium text-gray-700 mb-1">Programme</label>
+          <textarea name="programme" rows="4" class="w-full rounded-xl border-gray-300 bg-sage-50 text-accent-dark">{(stage.programme ?? []).join('\n')}</textarea>
+        </div>
+        <div>
+          <label for="prerequis" class="block text-sm font-medium text-gray-700 mb-1">Prérequis</label>
+          <textarea name="prerequis" rows="2" class="w-full rounded-xl border-gray-300 bg-sage-50 text-accent-dark">{stage.prerequis}</textarea>
+        </div>
+        <div>
+          <label for="materiel" class="block text-sm font-medium text-gray-700 mb-1">Matériel</label>
+          <textarea name="materiel" rows="2" class="w-full rounded-xl border-gray-300 bg-sage-50 text-accent-dark">{stage.materiel}</textarea>
+        </div>
+
+        <!-- Professeur -->
+        <fieldset class="border-t pt-6">
+          <legend class="text-lg font-semibold text-primary mb-4">Professeur</legend>
+          <div>
+            <label for="prof_nom" class="block text-sm font-medium text-gray-700 mb-1">Nom</label>
+            <input name="prof_nom" value={stage.professeur?.nom ?? ''} class="w-full rounded-xl border-gray-300 bg-sage-50 text-accent-dark" />
+          </div>
+          <div>
+            <label for="prof_bio" class="block text-sm font-medium text-gray-700 mb-1">Bio</label>
+            <textarea name="prof_bio" rows="3" class="w-full rounded-xl border-gray-300 bg-sage-50 text-accent-dark">{stage.professeur?.bio ?? ''}</textarea>
+          </div>
+          <div>
+            <label for="prof_image" class="block text-sm font-medium text-gray-700 mb-1">URL de la photo</label>
+            <input name="prof_image" value={stage.professeur?.image ?? ''} class="w-full rounded-xl border-gray-300 bg-sage-50 text-accent-dark" />
+          </div>
+        </fieldset>
+
+        <div>
+          <label for="image" class="block text-sm font-medium text-gray-700 mb-1">Image du stage (nouvelle)</label>
+          <input type="file" name="image" accept="image/*" class="block" />
+        </div>
+
+        <div>
+          <button type="submit" class="w-full bg-accent text-white py-3 rounded-xl hover:bg-accent-dark transition">
+            Mettre à jour le stage
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+</Layout>

@@ -3,6 +3,8 @@ import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
   integrations: [tailwind()],
+  middleware: ['src/middleware/auth.ts'],
+  output: 'server',
   compressHTML: true,
   build: {
     inlineStylesheets: 'always',

@@ -1,20 +1,23 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import LazyImage from '../components/LazyImage.astro';
-import bgImage from '../assets/images/la-matrice_bg.avif';
-import salleImage from '../assets/images/salle.avif';
-import salle2Image from '../assets/images/salle2.avif';
-import salle3Image from '../assets/images/salle3.avif';
+import Layout from "../layouts/Layout.astro";
+import LazyImage from "../components/LazyImage.astro";
+import bgImage from "../assets/images/la-matrice_bg.avif";
+import salleImage from "../assets/images/salle.avif";
+import salle2Image from "../assets/images/salle2.avif";
+import salle3Image from "../assets/images/salle3.avif";
 ---
 
-<Layout title="La Matrice - Studio de Yoga">
+<Layout title="LA MATRICE - Studio de Yoga">
   <main class="relative w-full">
     <!-- Hero Banner Section -->
-    <div class="relative h-[500px] md:h-[600px] w-full overflow-hidden" data-aos="fade">
+    <div
+      class="relative h-[500px] md:h-[600px] w-full overflow-hidden"
+      data-aos="fade"
+    >
       <div class="absolute inset-0">
-        <img 
+        <img
           src={bgImage.src}
-          alt="Bannière La Matrice" 
+          alt="Bannière LA MATRICE"
           class="w-full h-full object-cover"
           width="1920"
           height="1080"
@@ -24,9 +27,28 @@ import salle3Image from '../assets/images/salle3.avif';
       </div>
       <div class="relative h-full flex items-center justify-center text-center">
         <div class="text-white px-4">
-          <h1 class="text-4xl md:text-6xl font-bold mb-4 md:mb-6 font-PacificaRegular" data-aos="fade-up" data-aos-delay="200">La Matrice</h1>
-          <h2 class="text-2xl md:text-4xl font-light mb-6 md:mb-8" data-aos="fade-up" data-aos-delay="400">Pratiques en Eaux-Claires</h2>
-          <p class="text-lg md:text-2xl italic" data-aos="fade-up" data-aos-delay="600">salle de yoga mais pas que...</p>
+          <h1
+            class="text-4xl md:text-6xl font-bold mb-4 md:mb-6"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            LA MATRICE
+          </h1>
+          <h2
+            class="text-2xl md:text-4xl font-light mb-6 md:mb-8"
+            data-aos="fade-up"
+            data-aos-delay="400"
+            style="font-family: Pacifica Regular;"
+          >
+            Pratiques en Eaux-Claires
+          </h2>
+          <p
+            class="text-lg md:text-2xl italic"
+            data-aos="fade-up"
+            data-aos-delay="600"
+          >
+            salle de yoga mais pas que...
+          </p>
         </div>
       </div>
     </div>
@@ -36,27 +58,37 @@ import salle3Image from '../assets/images/salle3.avif';
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
           <div class="mb-8 lg:mb-0" data-aos="fade-up">
-            <LazyImage 
+            <LazyImage
               src={salleImage.src}
-              alt="Salle de yoga" 
+              alt="Salle de yoga"
               class="w-full h-[300px] md:h-[400px]"
               width={800}
               height={600}
             />
           </div>
           <div class="space-y-6" data-aos="fade-up" data-aos-delay="200">
-            <h2 class="text-2xl md:text-3xl font-bold text-gray-900">Pratiques en eaux Claires</h2>
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900"             style="font-family: Pacifica Regular;"
+>
+              Pratiques en eaux Claires
+            </h2>
             <p class="text-base md:text-lg text-gray-600 leading-relaxed">
-              Située à Grenoble, dans une impasse au coeur du quartier des Eaux-Claires, face à la verdure et au massif du Vercors, la salle La Matrice vous invite à pratiquer le yoga et d'autres activités ayant comme fil conducteur le bien-être, l'écoute de soi, le lâcher prise et l'ouverture aux autres.
+              Située à Grenoble, dans une impasse au coeur du quartier des
+              Eaux-Claires, face à la verdure et au massif du Vercors, la salle
+              <span style="font-family: luloclean; font-size: 1rem; font-weight: semibold;">LA MATRICE</span> vous invite à pratiquer le yoga et d'autres activités
+              ayant comme fil conducteur le bien-être, l'écoute de soi, le
+              lâcher prise et l'ouverture aux autres.
             </p>
             <p class="text-base md:text-lg text-gray-600 leading-relaxed">
-              Une parenthèse pour "prendre soin", pour (s')accueillir dans un espace chaleureux, ouvert et lumineux.
+              Une parenthèse pour "prendre soin", pour (s')accueillir dans un
+              espace chaleureux, ouvert et lumineux.
             </p>
             <p class="text-base md:text-lg text-gray-600 leading-relaxed">
-              Vous pourrez y suivre des cours hebdomadaires collectifs ou individuels de yoga, yoga pré et post natal.
+              Vous pourrez y suivre des cours hebdomadaires collectifs ou
+              individuels de yoga, yoga pré et post natal.
             </p>
             <p class="text-base md:text-lg text-gray-600 leading-relaxed">
-              Par ailleurs de nombreux stages sont proposés les week-ends tout au long de l'année.
+              Par ailleurs de nombreux stages sont proposés les week-ends tout
+              au long de l'année.
             </p>
           </div>
         </div>
@@ -68,45 +100,62 @@ import salle3Image from '../assets/images/salle3.avif';
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
           <div class="order-2 lg:order-1 mb-8 lg:mb-0" data-aos="fade-up">
-            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Notre salle</h2>
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6"             style="font-family: Pacifica Regular;"
+>
+              Notre salle
+            </h2>
             <div class="space-y-6">
               <p class="text-base md:text-lg text-gray-600 leading-relaxed">
-                L'association LA MATRICE gère le lieu. Maud et Franck en sont les heureux propriétaires depuis septembre 2022. Respectivement sage-femme et musicien, ils sont aussi tous deux professeurs de yoga et se sont entourés d'autres professeurs expérimentés, venant d'autres écoles, voire d'autres disciplines.
+                L'association <span style="font-family: luloclean; font-size: 1rem; font-weight: semibold;">LA MATRICE</span> gère le lieu. Maud et Franck en sont
+                les heureux propriétaires depuis septembre 2022. Respectivement
+                sage-femme et musicien, ils sont aussi tous deux professeurs de
+                yoga et se sont entourés d'autres professeurs expérimentés,
+                venant d'autres écoles, voire d'autres disciplines.
               </p>
               <p class="text-base md:text-lg text-gray-600 leading-relaxed">
-                La salle, à taille humaine, permet une pratique intimiste (12 personnes max). Aussi bien baigné par la lumière naturelle en journée qu'en soirée avec une lumière tamisée, ce cocon n'en est que plus chaleureux.
+                La salle, à taille humaine, permet une pratique intimiste (12
+                personnes max). Aussi bien baigné par la lumière naturelle en
+                journée qu'en soirée avec une lumière tamisée, ce cocon n'en est
+                que plus chaleureux.
               </p>
               <p class="text-base md:text-lg text-gray-600 leading-relaxed">
-                Des travaux d'amélioration et de rénovation ont eu lieu à l'été 2023. Ils se sont concentrés sur le vestiaire et l'entrée et ont permis la création d'un coin cuisine et d'un espace bibliothèque. À suivre...
+                Des travaux d'amélioration et de rénovation ont eu lieu à l'été
+                2023. Ils se sont concentrés sur le vestiaire et l'entrée et ont
+                permis la création d'un coin cuisine et d'un espace
+                bibliothèque. À suivre...
               </p>
             </div>
           </div>
-          <div class="order-1 lg:order-2 mb-8 lg:mb-0" data-aos="fade-up" data-aos-delay="200">
+          <div
+            class="order-1 lg:order-2 mb-8 lg:mb-0"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
             <div class="grid grid-cols-2 gap-4">
-              <LazyImage 
+              <LazyImage
                 src={salle3Image.src}
-                alt="Intérieur de la salle" 
+                alt="Intérieur de la salle"
                 class="w-full h-[150px] md:h-[250px]"
                 width={400}
                 height={300}
               />
-              <LazyImage 
+              <LazyImage
                 src={salle3Image.src}
-                alt="Espace détente" 
+                alt="Espace détente"
                 class="w-full h-[150px] md:h-[250px]"
                 width={400}
                 height={300}
               />
-              <LazyImage 
+              <LazyImage
                 src={salle2Image.src}
-                alt="Coin bibliothèque" 
+                alt="Coin bibliothèque"
                 class="w-full h-[150px] md:h-[250px]"
                 width={400}
                 height={300}
               />
-              <LazyImage 
+              <LazyImage
                 src={salle2Image.src}
-                alt="Vestiaire" 
+                alt="Vestiaire"
                 class="w-full h-[150px] md:h-[250px]"
                 width={400}
                 height={300}
@@ -119,19 +168,24 @@ import salle3Image from '../assets/images/salle3.avif';
 
     <!-- Call to Action Section -->
     <section class="py-16 md:py-24 bg-white w-full">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-aos="fade-up">
-        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-8 md:mb-12">Prêt à commencer votre voyage avec nous ?</h2>
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+        data-aos="fade-up"
+      >
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-8 md:mb-12">
+          Prêt à commencer votre voyage avec nous ?
+        </h2>
         <div class="flex flex-col md:flex-row justify-center gap-4 md:gap-6">
-          <a 
-            href="/stages" 
+          <a
+            href="/stages"
             class="btn-hover inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 border border-transparent text-base md:text-lg font-medium rounded-xl text-white bg-accent hover:bg-accent-dark transition-all duration-300"
             data-aos="fade-up"
             data-aos-delay="200"
           >
             Découvrir nos stages
           </a>
-          <a 
-            href="/contact" 
+          <a
+            href="/contact"
             class="btn-hover inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 border-2 border-accent text-base md:text-lg font-medium rounded-xl text-accent transition-all duration-300"
             data-aos="fade-up"
             data-aos-delay="400"

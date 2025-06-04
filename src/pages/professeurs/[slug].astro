@@ -1,0 +1,120 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { supabase } from '../../lib/supabaseClient';
+
+export const prerender = false;
+
+const { slug } = Astro.params;
+
+const { data: professeur, error } = await supabase
+  .from('professeurs')
+  .select('*')
+  .eq('slug', slug)
+  .single();
+
+if (error || !professeur) {
+  throw new Error('Professeur introuvable.');
+}
+---
+
+<Layout title={`${professeur.nom} - LA MATRICE`}>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Bouton retour -->
+    <div class="mb-8" data-aos="fade-right">
+      <a href="/professeurs" class="inline-flex items-center text-sage-500 hover:text-accent transition-colors duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L4.414 9H17a1 1 0 110 2H4.414l5.293 5.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+        </svg>
+        Retour aux professeurs
+      </a>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-soft overflow-hidden">
+      <div class="lg:flex">
+        <!-- Image -->
+        <div class="lg:w-1/3 relative group overflow-hidden" data-aos="fade-right">
+          <div class="absolute inset-0 bg-accent opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
+          <img
+            loading="lazy"
+            class="h-96 lg:h-full w-full object-cover"
+            src={professeur.image_url ?? '/placeholder.jpg'}
+            alt={professeur.nom}
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent lg:hidden"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-6 lg:hidden">
+            <h1 class="text-3xl font-bold text-white mb-2">{professeur.nom}</h1>
+            <p class="text-cream/90">{professeur.specialite}</p>
+          </div>
+        </div>
+
+        <!-- Contenu -->
+        <div class="lg:w-2/3 p-8 lg:p-12">
+          <div class="hidden lg:block mb-8" data-aos="fade-up">
+            <h1 class="text-4xl font-bold text-primary mb-3">{professeur.nom}</h1>
+            <p class="text-accent text-lg">{professeur.specialite}</p>
+          </div>
+
+          <div class="prose prose-sage max-w-none" data-aos="fade-up" data-aos-delay="200">
+            <p class="text-sage-600 text-lg leading-relaxed mb-8">{professeur.description}</p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-8 mb-12">
+            <div class="bg-sage-50 rounded-xl p-6" data-aos="fade-up" data-aos-delay="300">
+              <h2 class="text-xl font-semibold text-primary mb-4 flex items-center"             style="font-family: Pacifica Regular;"
+>
+                📚 Formation
+              </h2>
+              <p class="text-sage-600">{professeur.formation}</p>
+            </div>
+            <div class="bg-sage-50 rounded-xl p-6" data-aos="fade-up" data-aos-delay="400">
+              <h2 class="text-xl font-semibold text-primary mb-4 flex items-center"             style="font-family: Pacifica Regular;"
+>
+                🌱 Mon Approche
+              </h2>
+              <p class="text-sage-600">{professeur.approche}</p>
+            </div>
+          </div>
+
+          {professeur.cours && professeur.cours.length > 0 && (
+            <div class="mb-12" data-aos="fade-up" data-aos-delay="500">
+              <h2 class="text-xl font-semibold text-primary mb-6 flex items-center"             style="font-family: Pacifica Regular;"
+>
+                🧘 Mes Cours
+              </h2>
+              <div class="grid sm:grid-cols-2 gap-4">
+                {professeur.cours.map((cours) => (
+                  <div class="bg-sage-50 rounded-lg p-4 flex items-center space-x-3 transform hover:scale-105 transition-transform duration-300">
+                    <div class="w-2 h-2 rounded-full bg-accent"></div>
+                    <span class="text-sage-700">{cours}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div data-aos="fade-up" data-aos-delay="600">
+            <h2 class="text-xl font-semibold text-primary mb-6 flex items-center"             style="font-family: Pacifica Regular;"
+>
+              📬 Contact
+            </h2>
+            <div class="flex flex-wrap gap-4">
+              {professeur.email && (
+                <a href={`mailto:${professeur.email}`} class="inline-flex items-center px-4 py-2 rounded-lg bg-sage-50 text-sage-700 hover:bg-sage-100 transition-colors duration-300">
+                  📧 {professeur.email}
+                </a>
+              )}
+              {professeur.telephone && (
+                <a href={`tel:${professeur.telephone}`} class="inline-flex items-center px-4 py-2 rounded-lg bg-sage-50 text-sage-700 hover:bg-sage-100 transition-colors duration-300">
+                  📞 {professeur.telephone}
+                </a>
+              )}
+              <a href="/contact" class="inline-flex items-center px-4 py-2 rounded-lg bg-accent text-white hover:bg-accent-dark transition-colors duration-300">
+                Réserver un cours
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>

@@ -1,0 +1,40 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Administration - LA MATRICE">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">Espace d’administration</h1>
+      <p class="text-lg text-gray-600">Gérez vos stages et professeurs depuis cet espace</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-12">
+      <!-- Bloc stages -->
+      <div class="bg-white p-8 rounded-2xl shadow-soft">
+        <h2 class="text-2xl font-semibold text-primary mb-6">Stages</h2>
+        <ul class="space-y-4">
+          <li>
+            <a href="/admin/nouveau-stage" class="text-accent hover:underline">➕ Créer un nouveau stage</a>
+          </li>
+          <li>
+            <a href="/admin/gestion-stages" class="text-sage-700 hover:text-accent">📋 Gérer les stages existants</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Bloc professeurs -->
+      <div class="bg-white p-8 rounded-2xl shadow-soft">
+        <h2 class="text-2xl font-semibold text-primary mb-6">Professeurs</h2>
+        <ul class="space-y-4">
+          <li>
+            <a href="/admin/nouveau-professeur" class="text-accent hover:underline">➕ Ajouter un professeur</a>
+          </li>
+          <li>
+            <a href="/admin/gestion-professeurs" class="text-sage-700 hover:text-accent">📋 Gérer les professeurs</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </main>
+</Layout>

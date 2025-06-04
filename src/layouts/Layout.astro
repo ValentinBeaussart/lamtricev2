@@ -7,7 +7,7 @@ const { title } = Astro.props;
 const currentPath = Astro.url.pathname;
 
 const navLinks = [
-  { href: "/", text: "Accueil" },
+  // { href: "/", text: "Accueil" },
   { href: "/agenda", text: "Agenda" },
   { href: "/professeurs", text: "Professeurs" },
   { href: "/stages", text: "Les Stages" },
@@ -24,7 +24,7 @@ const navLinks = [
     <meta name="generator" content={Astro.generator} />
     <meta
       name="description"
-      content="La Matrice - Studio de yoga à Grenoble. Cours de yoga, méditation et bien-être."
+      content="LA MATRICE - Studio de yoga à Grenoble. Cours de yoga, méditation et bien-être."
     />
     <meta name="theme-color" content="#2C3A2F" />
     <title>{title}</title>
@@ -32,6 +32,10 @@ const navLinks = [
     <!-- Preload fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css"
+    />
     <link
       rel="preload"
       as="style"
@@ -66,7 +70,15 @@ const navLinks = [
         font-style: normal;
         font-display: swap;
       }
-      /* Critical CSS inlined */
+
+      @font-face {
+        font-family: "luloclean";
+        src: url("/fonts/luloclean.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+
       @keyframes navFadeIn {
         from {
           opacity: 0;
@@ -84,6 +96,10 @@ const navLinks = [
         transition:
           opacity 0.6s ease-out,
           transform 0.6s ease-out;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
       }
 
       .nav-scroll {
@@ -236,9 +252,9 @@ const navLinks = [
           <div class="flex items-center">
             <a href="/" class="flex items-center group">
               <span
-                class="text-2xl md:text-3xl font-bold text-primary group-hover:text-accent transition-all duration-300 transform group-hover:scale-105"
+                class="text-2xl md:text-3xl font-bold text-primary group-hover:text-accent transition-all duration-300 transform group-hover:scale-105" style="font-family: luloclean;"
               >
-                La Matrice
+                LA MATRICE
               </span>
             </a>
           </div>
@@ -300,7 +316,8 @@ const navLinks = [
             data-aos-delay="100"
             class="text-center md:text-left"
           >
-            <h3 class="text-xl font-semibold text-primary mb-6">La Matrice</h3>
+            <h3 class="text-xl font-semibold text-primary mb-6"             style="font-family: luloclean;"
+>LA MATRICE</h3>
             <p class="text-sage-600">
               Un espace dédié au bien-être et à la pratique du yoga au cœur de
               Grenoble.
@@ -314,9 +331,24 @@ const navLinks = [
             <h3 class="text-xl font-semibold text-primary mb-6">Contact</h3>
             <ul class="space-y-4 text-sage-600">
               <li>18 chemin des Marronniers, 38100 Grenoble</li>
-              <li>06 08 10 33 11</li>
-              <li>maud.bouchard@gmail.com</li>
-              <li>franck.litzler@gmail.com</li>
+              <li>
+                <a href="tel:+33608103311" class="text-accent hover:underline"
+                  >06 08 10 33 11</a
+                >
+              </li>
+              <li>
+                <a
+                  href="mailto:maud.bouchard@gmail.com"
+                  class="text-accent hover:underline">maud.bouchard@gmail.com</a
+                >
+              </li>
+              <li>
+                <a
+                  href="mailto:franck.litzler@gmail.com"
+                  class="text-accent hover:underline"
+                  >franck.litzler@gmail.com</a
+                >
+              </li>
             </ul>
           </div>
           <div
@@ -352,7 +384,9 @@ const navLinks = [
           </div>
         </div>
         <div class="mt-16 pt-8 border-t border-sage-200 text-center">
-          <p class="text-sage-500">&copy; <span id="currentYear"></span> La Matrice. Tous droits réservés.</p>
+          <p class="text-sage-500">
+            &copy; <span id="currentYear"></span> LA MATRICE. Tous droits réservés.
+          </p>
         </div>
       </div>
     </footer>
@@ -423,7 +457,24 @@ const navLinks = [
         link.addEventListener("click", toggleMenu);
       });
 
-      document.getElementById('currentYear').textContent = new Date().getFullYear();
+      document.getElementById("currentYear").textContent =
+        new Date().getFullYear();
+    </script>
+    <script type="module">
+      import { Notyf } from "notyf";
+      const notyf = new Notyf({ duration: 3000, ripple: true });
+
+      const url = new URL(window.location.href);
+      if (url.searchParams.get("deleted") === "1") {
+        notyf.success("Professeur supprimé avec succès ✅");
+        url.searchParams.delete("deleted");
+        window.history.replaceState({}, "", url.toString());
+      }
+      if (url.searchParams.get("updated") === "1") {
+        notyf.success("Modifications enregistrées ✅");
+        url.searchParams.delete("updated");
+        window.history.replaceState({}, "", url.toString());
+      }
     </script>
   </body>
 </html>

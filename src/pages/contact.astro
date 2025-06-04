@@ -1,8 +1,11 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+
+const url = new URL(Astro.url);
+const sent = url.searchParams.get("sent") === "1";
 ---
 
-<Layout title="Contact - La Matrice">
+<Layout title="Contact - LA MATRICE">
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
     <div class="max-w-3xl mx-auto">
       <div class="text-center mb-16" data-aos="fade-down">
@@ -12,22 +15,36 @@ import Layout from '../layouts/Layout.astro';
         </p>
       </div>
 
+      {sent && (
+        <div class="mb-8 p-4 bg-green-100 border border-green-300 text-green-800 rounded-xl text-center">
+          Merci pour votre message ! Nous vous répondrons rapidement. ✅
+        </div>
+      )}
+
       <div class="grid md:grid-cols-2 gap-8 mb-16">
         <div class="bg-white rounded-2xl shadow-soft p-8" data-aos="fade-up" data-aos-delay="100">
-          <h2 class="text-2xl font-semibold text-primary mb-8">Informations</h2>
+          <h2 class="text-2xl font-semibold text-primary mb-8" style="font-family: Pacifica Regular;">
+            Informations
+          </h2>
           <div class="space-y-6">
             <div data-aos="fade-up" data-aos-delay="200">
               <h3 class="font-medium text-gray-900 mb-2">Adresse</h3>
-              <p class="text-gray-600">18 chemin des Marronniers,<br/>38100 Grenoble</p>
+              <p class="text-gray-600">18 chemin des Marronniers,<br />38100 Grenoble</p>
             </div>
             <div data-aos="fade-up" data-aos-delay="300">
               <h3 class="font-medium text-gray-900 mb-2">Téléphone</h3>
-              <p class="text-gray-600">06 08 10 33 11</p>
+              <p class="text-gray-600">
+                <a href="tel:+33608103311" class="text-accent hover:underline">06 08 10 33 11</a>
+              </p>
             </div>
             <div data-aos="fade-up" data-aos-delay="400">
               <h3 class="font-medium text-gray-900 mb-2">Email</h3>
-              <p class="text-gray-600">maud.bouchard@gmail.com</p>
-              <p class="text-gray-600">franck.litzler@gmail.com</p>
+              <p class="text-gray-600">
+                <a href="mailto:maud.bouchard@gmail.com" class="text-accent hover:underline">maud.bouchard@gmail.com</a>
+              </p>
+              <p class="text-gray-600">
+                <a href="mailto:franck.litzler@gmail.com" class="text-accent hover:underline">franck.litzler@gmail.com</a>
+              </p>
             </div>
           </div>
         </div>
@@ -44,7 +61,13 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </div>
 
-      <form class="bg-white rounded-2xl shadow-soft p-8" data-aos="fade-up" data-aos-delay="200">
+      <form
+        method="POST"
+        action="/api/contact"
+        class="bg-white rounded-2xl shadow-soft p-8"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
         <div class="grid gap-8">
           <div data-aos="fade-up" data-aos-delay="300">
             <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nom</label>
@@ -52,6 +75,7 @@ import Layout from '../layouts/Layout.astro';
               type="text"
               id="name"
               name="name"
+              required
               class="w-full rounded-xl border-gray-300 shadow-sm focus:border-accent focus:ring focus:ring-accent focus:ring-opacity-50 bg-sage-50 text-accent-dark"
             />
           </div>
@@ -61,6 +85,7 @@ import Layout from '../layouts/Layout.astro';
               type="email"
               id="email"
               name="email"
+              required
               class="w-full rounded-xl border-gray-300 shadow-sm focus:border-accent focus:ring focus:ring-accent focus:ring-opacity-50 bg-sage-50 text-accent-dark"
             />
           </div>
@@ -70,6 +95,7 @@ import Layout from '../layouts/Layout.astro';
               id="message"
               name="message"
               rows="4"
+              required
               class="w-full rounded-xl border-gray-300 shadow-sm focus:border-accent focus:ring focus:ring-accent focus:ring-opacity-50 bg-sage-50 text-accent-dark"
             ></textarea>
           </div>
