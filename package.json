@@ -26,6 +26,7 @@
     "node": ">=18.14.1"
   },
   "devDependencies": {
+    "netlify-cli": "^21.6.0",
     "terser": "^5.39.0"
   }
 }
