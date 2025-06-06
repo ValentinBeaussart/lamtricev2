@@ -2,7 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import { supabase } from "../../lib/supabaseClient";
 
-export const prerender = false;
+// export const prerender = false;
 
 const { data: professeurs, error } = await supabase
   .from("professeurs")
