@@ -6,11 +6,18 @@ import { supabase } from '../../../lib/supabaseClient';
 export const POST: APIRoute = async ({ request, redirect }) => {
   try {
     const formData = await request.formData();
+
     const id = formData.get('id')?.toString() ?? '';
     const slug = formData.get('slug')?.toString() ?? '';
+    const prof_id = formData.get('prof_id')?.toString() ?? '';
     const file = formData.get('image') as File | null;
 
-    const updates: any = {
+    // Vérifications basiques
+    if (!id || !prof_id) {
+      return new Response('Identifiant manquant.', { status: 400 });
+    }
+
+    const updates: Record<string, any> = {
       title: formData.get('title')?.toString() ?? '',
       date: formData.get('date')?.toString() ?? '',
       description: formData.get('description')?.toString() ?? '',
@@ -20,12 +27,9 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       places: formData.get('places')?.toString() ?? '',
       prerequis: formData.get('prerequis')?.toString() ?? '',
       materiel: formData.get('materiel')?.toString() ?? '',
-      programme: formData.get('programme')?.toString().split('\n').filter(Boolean),
+      programme: formData.get('programme')?.toString()?.split('\n').filter(Boolean) ?? [],
       slug,
-      professeur: {
-        nom: formData.get('prof_nom')?.toString() ?? '',
-        bio: formData.get('prof_bio')?.toString() ?? '',
-      }
+      professeur_id: prof_id, // 🔁 mise à jour de la clé étrangère
     };
 
     if (file && file.size > 0) {
@@ -43,11 +47,13 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       }
 
       const { data: urlData } = supabase.storage.from('images').getPublicUrl(fileName);
-      updates.image = urlData.publicUrl;
-      updates.professeur.image = urlData.publicUrl;
+      updates.image_url = urlData.publicUrl;
     }
 
-    const { error } = await supabase.from('stages').update(updates).eq('id', id);
+    const { error } = await supabase
+      .from('stages')
+      .update(updates)
+      .eq('id', id);
 
     if (error) {
       console.error('[Update stage error]', error.message);

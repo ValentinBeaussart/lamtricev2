@@ -1,86 +1,290 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import Layout from "../../layouts/Layout.astro";
+import { supabase } from '../../lib/supabaseClient';
+
+const { data: professeurs, error } = await supabase.from('professeurs').select('*').order('nom');
+
+if (error) {
+  throw new Error(`Erreur chargement profs: ${error.message}`);
+}
 ---
 
 <Layout title="Ajouter un Stage - LA MATRICE">
-  <main class="max-w-3xl mx-auto px-4 py-24">
+  <main class="max-w-3xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-24">
     <div class="bg-white shadow-soft rounded-2xl p-8">
-      <h1 class="text-3xl font-bold text-gray-900 mb-6 text-center">Ajouter un stage</h1>
+      <h1 class="text-3xl font-bold text-gray-900 mb-6 text-center">
+        Ajouter un stage
+      </h1>
 
-      <form method="POST" action="/api/stages/create" enctype="multipart/form-data" class="grid gap-6">
-        <div>
-          <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Titre</label>
-          <input name="title" required class="w-full rounded-xl border-gray-300 bg-sage-50 text-accent-dark" />
-        </div>
-        <div>
-          <label for="slug" class="block text-sm font-medium text-gray-700 mb-1">Slug (URL)</label>
-          <input name="slug" required placeholder="ex: yoga-restauratif" class="w-full rounded-xl border-gray-300 bg-sage-50 text-accent-dark" />
-        </div>
-        <div>
-          <label for="date" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
-          <input name="date" class="w-full rounded-xl border-gray-300 bg-sage-50 text-accent-dark" />
-        </div>
-        <div>
-          <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-          <textarea name="description" rows="3" class="w-full rounded-xl border-gray-300 bg-sage-50 text-accent-dark"></textarea>
-        </div>
-        <div>
-          <label for="details" class="block text-sm font-medium text-gray-700 mb-1">Détails</label>
-          <textarea name="details" rows="3" class="w-full rounded-xl border-gray-300 bg-sage-50 text-accent-dark"></textarea>
-        </div>
-        <div>
-          <label for="duree" class="block text-sm font-medium text-gray-700 mb-1">Durée</label>
-          <input name="duree" class="w-full rounded-xl border-gray-300 bg-sage-50 text-accent-dark" />
-        </div>
-        <div>
-          <label for="prix" class="block text-sm font-medium text-gray-700 mb-1">Prix</label>
-          <input name="prix" class="w-full rounded-xl border-gray-300 bg-sage-50 text-accent-dark" />
-        </div>
-        <div>
-          <label for="places" class="block text-sm font-medium text-gray-700 mb-1">Nombre de places</label>
-          <input name="places" class="w-full rounded-xl border-gray-300 bg-sage-50 text-accent-dark" />
-        </div>
-        <div>
-          <label for="programme" class="block text-sm font-medium text-gray-700 mb-1">Programme (1 ligne par activité)</label>
-          <textarea name="programme" rows="4" class="w-full rounded-xl border-gray-300 bg-sage-50 text-accent-dark"></textarea>
-        </div>
-        <div>
-          <label for="prerequis" class="block text-sm font-medium text-gray-700 mb-1">Prérequis</label>
-          <textarea name="prerequis" rows="2" class="w-full rounded-xl border-gray-300 bg-sage-50 text-accent-dark"></textarea>
-        </div>
-        <div>
-          <label for="materiel" class="block text-sm font-medium text-gray-700 mb-1">Matériel requis</label>
-          <textarea name="materiel" rows="2" class="w-full rounded-xl border-gray-300 bg-sage-50 text-accent-dark"></textarea>
-        </div>
+      <form
+        method="POST"
+        action="/api/stages/create"
+        enctype="multipart/form-data"
+        class="grid gap-6"
+        novalidate
+      >
+        <fieldset
+          class="grid gap-4 bg-gray-50 p-4 rounded-xl border border-gray-200"
+        >
+          <legend class="text-lg font-semibold text-accent mb-2"
+            >Informations générales</legend
+          >
 
-        <!-- Bloc professeur associé -->
-        <fieldset class="border-t pt-6">
-          <legend class="text-lg font-semibold text-primary mb-4">Professeur du stage</legend>
           <div>
-            <label for="prof_nom" class="block text-sm font-medium text-gray-700 mb-1">Nom</label>
-            <input name="prof_nom" class="w-full rounded-xl border-gray-300 bg-sage-50 text-accent-dark" />
+            <label
+              for="title"
+              class="block text-sm font-medium text-gray-700 mb-1">Titre</label
+            >
+            <input
+              name="title"
+              id="title"
+              required
+              class="w-full rounded-xl border border-gray-300 bg-sage-50 text-accent-dark px-3 py-2"
+            />
           </div>
+
           <div>
-            <label for="prof_bio" class="block text-sm font-medium text-gray-700 mb-1">Bio</label>
-            <textarea name="prof_bio" rows="3" class="w-full rounded-xl border-gray-300 bg-sage-50 text-accent-dark"></textarea>
+            <label
+              for="slug"
+              class="block text-sm font-medium text-gray-700 mb-1"
+              >Slug (URL)</label
+            >
+            <input
+              name="slug"
+              id="slug"
+              required
+              placeholder="ex: yoga-restauratif"
+              class="w-full rounded-xl border border-gray-300 bg-sage-50 text-accent-dark px-3 py-2"
+            />
           </div>
+
           <div>
-            <label for="prof_image" class="block text-sm font-medium text-gray-700 mb-1">URL de la photo</label>
-            <input name="prof_image" class="w-full rounded-xl border-gray-300 bg-sage-50 text-accent-dark" />
+            <label
+              for="date"
+              class="block text-sm font-medium text-gray-700 mb-1">Date</label
+            >
+            <input
+              name="date"
+              id="date"
+              required
+              class="w-full rounded-xl border border-gray-300 bg-sage-50 text-accent-dark px-3 py-2"
+            />
+          </div>
+
+          <div>
+            <label
+              for="duree"
+              class="block text-sm font-medium text-gray-700 mb-1">Durée</label
+            >
+            <input
+              name="duree"
+              id="duree"
+              class="w-full rounded-xl border border-gray-300 bg-sage-50 text-accent-dark px-3 py-2"
+            />
+          </div>
+
+          <div>
+            <label
+              for="prix"
+              class="block text-sm font-medium text-gray-700 mb-1">Prix</label
+            >
+            <input
+              name="prix"
+              id="prix"
+              class="w-full rounded-xl border border-gray-300 bg-sage-50 text-accent-dark px-3 py-2"
+            />
+          </div>
+
+          <div>
+            <label
+              for="places"
+              class="block text-sm font-medium text-gray-700 mb-1"
+              >Nombre de places</label
+            >
+            <input
+              name="places"
+              id="places"
+              class="w-full rounded-xl border border-gray-300 bg-sage-50 text-accent-dark px-3 py-2"
+            />
           </div>
         </fieldset>
 
-        <div>
-          <label for="image" class="block text-sm font-medium text-gray-700 mb-1">Image du stage</label>
-          <input type="file" name="image" accept="image/*" class="block" />
-        </div>
+        <fieldset
+          class="grid gap-4 bg-gray-50 p-4 rounded-xl border border-gray-200"
+        >
+          <legend class="text-lg font-semibold text-accent mb-2"
+            >Contenu du stage</legend
+          >
 
-        <div>
-          <button type="submit" class="w-full bg-accent text-white py-3 rounded-xl hover:bg-accent-dark transition">
+          <div>
+            <label
+              for="description"
+              class="block text-sm font-medium text-gray-700 mb-1"
+              >Description</label
+            >
+            <textarea
+              name="description"
+              id="description"
+              rows="3"
+              class="w-full rounded-xl border border-gray-300 bg-sage-50 text-accent-dark px-3 py-2"
+            ></textarea>
+          </div>
+
+          <div>
+            <label
+              for="details"
+              class="block text-sm font-medium text-gray-700 mb-1"
+              >Détails</label
+            >
+            <textarea
+              name="details"
+              id="details"
+              rows="3"
+              class="w-full rounded-xl border border-gray-300 bg-sage-50 text-accent-dark px-3 py-2"
+            ></textarea>
+          </div>
+
+          <div>
+            <label
+              for="programme"
+              class="block text-sm font-medium text-gray-700 mb-1"
+              >Programme</label
+            >
+            <textarea
+              name="programme"
+              id="programme"
+              rows="4"
+              placeholder="Une ligne par activité"
+              class="w-full rounded-xl border border-gray-300 bg-sage-50 text-accent-dark px-3 py-2 whitespace-pre"
+            ></textarea>
+          </div>
+
+          <div>
+            <label
+              for="prerequis"
+              class="block text-sm font-medium text-gray-700 mb-1"
+              >Prérequis</label
+            >
+            <textarea
+              name="prerequis"
+              id="prerequis"
+              rows="2"
+              class="w-full rounded-xl border border-gray-300 bg-sage-50 text-accent-dark px-3 py-2"
+            ></textarea>
+          </div>
+
+          <div>
+            <label
+              for="materiel"
+              class="block text-sm font-medium text-gray-700 mb-1"
+              >Matériel requis</label
+            >
+            <textarea
+              name="materiel"
+              id="materiel"
+              rows="2"
+              class="w-full rounded-xl border border-gray-300 bg-sage-50 text-accent-dark px-3 py-2"
+            ></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset
+          class="grid gap-4 bg-gray-50 p-4 rounded-xl border border-gray-200"
+        >
+          <legend class="text-lg font-semibold text-accent mb-2"
+            >Professeur du stage</legend
+          >
+
+          <div>
+            <label
+              for="prof_id"
+              class="block text-sm font-medium text-gray-700 mb-1"
+              >Choisir un professeur</label
+            >
+            <select
+              name="prof_id"
+              id="prof_id"
+              required
+              class="w-full rounded-xl border border-gray-300 bg-sage-50 text-accent-dark px-3 py-2"
+            >
+              <option value="" disabled selected>— Sélectionner —</option>
+              {
+                professeurs.map((prof) => (
+                  <option value={prof.id}>{prof.nom}</option>
+                ))
+              }
+            </select>
+          </div>
+        </fieldset>
+
+        <fieldset
+          class="grid gap-4 bg-gray-50 p-4 rounded-xl border border-gray-200"
+        >
+          <legend class="text-lg font-semibold text-accent mb-2"
+            >Image du stage</legend
+          >
+
+          <div>
+            <label
+              for="image"
+              class="block text-sm font-medium text-gray-700 mb-1">Image</label
+            >
+            <input
+              type="file"
+              name="image"
+              id="image"
+              accept="image/*"
+              onchange="previewImage(event)"
+              class="block w-full"
+            />
+            <img
+              id="imagePreview"
+              class="mt-4 w-32 h-32 rounded-xl object-cover hidden border border-gray-300 shadow-sm"
+              alt="Aperçu image stage"
+            />
+          </div>
+        </fieldset>
+
+        <div class="pt-4">
+          <button
+            type="submit"
+            class="w-full bg-accent text-white py-3 rounded-xl hover:bg-accent-dark transition font-semibold focus:outline focus:ring-2 focus:ring-accent-dark"
+          >
             Ajouter le stage
           </button>
         </div>
       </form>
     </div>
   </main>
+
+  <script is:raw>
+    window.previewImage = function (event) {
+      const fileInput = event.target;
+      const preview = document.getElementById("imagePreview");
+      if (fileInput.files && fileInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          preview.src = e.target.result;
+          preview.classList.remove("hidden");
+        };
+        reader.readAsDataURL(fileInput.files[0]);
+      }
+    };
+
+    // Auto-slugify le champ titre
+    document.addEventListener("DOMContentLoaded", () => {
+      const titre = document.getElementById("title");
+      const slug = document.getElementById("slug");
+      if (titre && slug) {
+        titre.addEventListener("input", () => {
+          slug.value = titre.value
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/\s+/g, "-")
+            .replace(/[^a-z0-9\-]/g, "");
+        });
+      }
+    });
+  </script>
 </Layout>

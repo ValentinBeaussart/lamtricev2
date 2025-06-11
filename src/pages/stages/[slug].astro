@@ -1,6 +1,6 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import { supabase } from '../../lib/supabaseClient';
+import Layout from "../../layouts/Layout.astro";
+import { supabase } from "../../lib/supabaseClient";
 
 export const prerender = false;
 
@@ -15,6 +15,17 @@ const { data: stage, error } = await supabase
 if (error || !stage) {
   return Astro.redirect('/404');
 }
+
+const { data: professeur, error: profError } = await supabase
+  .from('professeurs')
+  .select('*')
+  .eq('id', stage.professeur_id)
+  .single();
+
+if (profError || !professeur) {
+  return Astro.redirect('/404');
+}
+
 ---
 
 <Layout title={`${stage.title} - LA MATRICE`}>
@@ -22,20 +33,27 @@ if (error || !stage) {
     <article class="bg-white rounded-2xl shadow-soft overflow-hidden">
       <!-- Image de couverture -->
       <div class="relative h-96" data-aos="fade">
-        <img 
+        <img
           loading="lazy"
-          src={stage.image_url} 
+          src={stage.image_url}
           alt={stage.title}
           class="w-full h-full object-cover"
         />
-        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+        >
+        </div>
         <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
           <div data-aos="fade-up" data-aos-delay="200">
             <div class="flex items-center space-x-4 mb-4">
-              <span class="px-3 py-1 bg-accent/90 rounded-full text-sm font-medium">
+              <span
+                class="px-3 py-1 bg-accent/90 rounded-full text-sm font-medium"
+              >
                 {stage.date}
               </span>
-              <span class="px-3 py-1 bg-white/90 text-primary rounded-full text-sm font-medium">
+              <span
+                class="px-3 py-1 bg-white/90 text-primary rounded-full text-sm font-medium"
+              >
                 {stage.duree}
               </span>
             </div>
@@ -47,7 +65,11 @@ if (error || !stage) {
 
       <!-- Contenu principal -->
       <div class="p-8">
-        <div class="grid md:grid-cols-3 gap-6 mb-12" data-aos="fade-up" data-aos-delay="100">
+        <div
+          class="grid md:grid-cols-3 gap-6 mb-12"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
           <div class="bg-sage-50 rounded-xl p-6">
             <h3 class="text-lg font-semibold text-primary mb-2">Durée</h3>
             <p class="text-gray-600">{stage.duree}</p>
@@ -65,11 +87,13 @@ if (error || !stage) {
         <div class="mb-12" data-aos="fade-up" data-aos-delay="200">
           <h2 class="text-2xl font-bold text-primary mb-6">Programme</h2>
           <ul class="space-y-4">
-            {stage.programme.map((item: string) => (
-              <li class="flex items-start">
-                <span class="text-gray-600">{item}</span>
-              </li>
-            ))}
+            {
+              stage.programme.map((item: string) => (
+                <li class="flex items-start">
+                  <span class="text-gray-600">{item}</span>
+                </li>
+              ))
+            }
           </ul>
         </div>
 
@@ -79,29 +103,41 @@ if (error || !stage) {
             <p class="text-gray-600">{stage.prerequis}</p>
           </div>
           <div data-aos="fade-up" data-aos-delay="300">
-            <h2 class="text-2xl font-bold text-primary mb-4">Matériel nécessaire</h2>
+            <h2 class="text-2xl font-bold text-primary mb-4">
+              Matériel nécessaire
+            </h2>
             <p class="text-gray-600">{stage.materiel}</p>
           </div>
         </div>
 
-        <div class="border-t border-gray-100 pt-12" data-aos="fade-up" data-aos-delay="400">
+        <div
+          class="border-t border-gray-100 pt-12"
+          data-aos="fade-up"
+          data-aos-delay="400"
+        >
           <h2 class="text-2xl font-bold text-primary mb-6">Votre professeur</h2>
           <div class="flex items-center">
-            <img 
-              src={stage.professeur.image} 
-              alt={stage.professeur.nom}
-              class="w-16 h-16 rounded-full object-cover"
-            />
+            {
+              professeur?.image_url && (
+                <img
+                  src={professeur.image_url}
+                  alt={professeur.nom}
+                  class="w-16 h-16 rounded-full object-cover"
+                />
+              )
+            }
             <div class="ml-4">
-              <h3 class="text-lg font-semibold text-primary">{stage.professeur.nom}</h3>
-              <p class="text-gray-600">{stage.professeur.bio}</p>
+              <h3 class="text-lg font-semibold text-primary">
+                {professeur.nom}
+              </h3>
+              <p class="text-gray-600">{professeur.approche}</p>
             </div>
           </div>
         </div>
 
         <div class="mt-12 text-center" data-aos="fade-up" data-aos-delay="500">
-          <a 
-            href="/contact" 
+          <a
+            href="/contact"
             class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-accent hover:bg-accent-dark transition-all duration-300 transform hover:-translate-y-1"
           >
             Réserver ce stage
