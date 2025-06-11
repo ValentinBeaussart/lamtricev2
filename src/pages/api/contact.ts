@@ -16,7 +16,7 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     const { error } = await resend.emails.send({
       from: "LA MATRICE <onboarding@resend.dev>",
-      to: "pixeldurable@gmail.com",
+      to: "admin@pixeldurable.fr",
       subject: `Nouveau message de ${name}`,
       replyTo: email,
       text: message,
