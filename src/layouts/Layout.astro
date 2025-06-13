@@ -374,28 +374,27 @@ const navLinks = [
               </li>
             </ul>
           </div>
-<div
-  data-aos="fade-up"
-  data-aos-delay="300"
-  class="text-center md:text-left"
->
-  <h3 class="text-xl font-semibold text-primary mb-6">Navigation</h3>
-  <ul class="space-y-2">
-    {
-      navLinks.map((link) => (
-        <li>
-          <a
-            href={link.href}
-            class="text-sage-600 hover:text-accent transition-colors duration-300"
+          <div
+            data-aos="fade-up"
+            data-aos-delay="300"
+            class="text-center md:text-left"
           >
-            {link.text}
-          </a>
-        </li>
-      ))
-    }
-  </ul>
-</div>
-
+            <h3 class="text-xl font-semibold text-primary mb-6">Navigation</h3>
+            <ul class="space-y-2">
+              {
+                navLinks.map((link) => (
+                  <li>
+                    <a
+                      href={link.href}
+                      class="text-sage-600 hover:text-accent transition-colors duration-300"
+                    >
+                      {link.text}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
         </div>
         <div class="mt-16 pt-8 border-t border-sage-200 text-center">
           <p class="text-sage-500">
