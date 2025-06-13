@@ -72,6 +72,38 @@ const navLinks = [
       }
 
       @font-face {
+        font-family: "Rubik";
+        src: url("/fonts/Rubik-Light.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "PoppinsRegular";
+        src: url("/fonts/Poppins-Regular.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "PoppinsMedium";
+        src: url("/fonts/Poppins-Medium.ttf") format("truetype");
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "PoppinsBold";
+        src: url("/fonts/Poppins-Bold.ttf") format("truetype");
+        font-weight: 600;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
         font-family: "luloclean";
         src: url("/fonts/luloclean.ttf") format("truetype");
         font-weight: normal;
@@ -323,20 +355,21 @@ const navLinks = [
             >
               LA MATRICE
             </h3>
-            <p class="text-sage-600">PRÉSENCE À SOI, CONSCIENCE DE L’INSTANT</p>
+            <p class="text-sage-600" style="font-family: luloclean;">PRÉSENCE À SOI, CONSCIENCE DE L’INSTANT</p>
           </div>
           <div
             data-aos="fade-up"
             data-aos-delay="200"
             class="text-center md:text-left"
           >
-            <h3 class="text-xl font-semibold text-primary mb-6">Contact</h3>
-            <ul class="space-y-2 text-sage-600">
-              <li>18 chemin des Marronniers, 38100 Grenoble</li>
+            <h3 class="text-xl font-semibold text-primary mb-6" style="font-family: PoppinsMedium;">Contact</h3>
+            <ul class="space-y-2 text-sage-600" style="font-family: PoppinsBold;">
+              <!-- <li>18 chemin des Marronniers, 38100 Grenoble</li> -->
               <li>
                 <a
                   href="tel:+33608103311"
                   class="inline-flex items-center text-accent hover:text-accent-dark transition-colors duration-300"
+                  style="font-family: PoppinsBold;"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -355,6 +388,7 @@ const navLinks = [
                 <a
                   href="mailto:contact@lamatrice.net"
                   class="inline-flex items-center text-accent hover:text-accent-dark transition-colors duration-300"
+                  style="font-family: PoppinsBold;"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -379,14 +413,14 @@ const navLinks = [
             data-aos-delay="300"
             class="text-center md:text-left"
           >
-            <h3 class="text-xl font-semibold text-primary mb-6">Navigation</h3>
+            <h3 class="text-xl font-semibold text-primary mb-6" style="font-family: PoppinsMedium;">Navigation</h3>
             <ul class="space-y-2">
               {
                 navLinks.map((link) => (
                   <li>
                     <a
                       href={link.href}
-                      class="text-sage-600 hover:text-accent transition-colors duration-300"
+                      class="text-sage-600 hover:text-accent transition-colors duration-300" style="font-family: PoppinsBold;"
                     >
                       {link.text}
                     </a>
@@ -397,8 +431,15 @@ const navLinks = [
           </div>
         </div>
         <div class="mt-16 pt-8 border-t border-sage-200 text-center">
-          <p class="text-sage-500">
-            &copy; <span id="currentYear"></span> LA MATRICE. Tous droits réservés.
+          <p class="text-sage-500" style="font-family: PoppinsBold;">
+            &copy; <span id="currentYear"></span> LA MATRICE - Réalisation par
+            <a
+              href="https://pixeldurable.fr/"
+              style="font-family: PoppinsBold; text-decoration: underline;"
+              target="_blank"
+            >
+              Pixel Durable
+            </a>
           </p>
         </div>
       </div>
