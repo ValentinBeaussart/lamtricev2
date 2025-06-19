@@ -466,7 +466,6 @@ const navLinks = [
         }, 300);
       });
 
-      // Reinitialize AOS on route change
       document.addEventListener("astro:after-swap", () => {
         AOS.refresh();
       });
